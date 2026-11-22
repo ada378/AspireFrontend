@@ -1,0 +1,760 @@
+{
+  "company": {
+    "name": "Aspire MediaTech Solutions",
+    "tagline": "INNOVATE OPTIMIZE GROW",
+    "address": "2nd Floor, 203-A, Felix Square, Sushant Golf City, Lucknow, UP 226030",
+    "phone": "+91 91940 35877",
+    "email": "aspiremediatechsolution@gmail.com",
+    "website": "aspiremediatechsolution.in",
+    "about": "Aspire MediaTech Solutions is a cutting-edge technology and digital marketing company headquartered in Lucknow, Uttar Pradesh. We specialize in empowering businesses of all sizes to thrive in the digital age through innovative tech solutions, data-driven marketing strategies, and creative digital services. Founded with a vision to bridge the gap between technology and business growth, we combine technical expertise with creative thinking to deliver measurable results."
+  },
+  "categories": [
+    {
+      "id": "web-development",
+      "name": "Website Development",
+      "description": "High-speed, SEO-optimized, responsive websites tailored for high conversions and scale.",
+      "icon": "Code",
+      "items": [
+        {
+          "title": "Basic Landing Page",
+          "price": "Rs. 8,000 - Rs. 12,000",
+          "duration": "3-5 Days",
+          "features": [
+            "Single page conversion-focused design",
+            "Mobile responsive & cross-browser compatible",
+            "Lead capture form & WhatsApp button",
+            "Speed & basic SEO optimization",
+            "SSL integration"
+          ]
+        },
+        {
+          "title": "Business Website (5-7 pages)",
+          "price": "Rs. 15,000 - Rs. 25,000",
+          "duration": "7-10 Days",
+          "features": [
+            "5-7 Custom Designed Pages",
+            "Interactive UI/UX with smooth animations",
+            "On-Page SEO & Google Analytics setup",
+            "Contact & inquiry form system",
+            "Mobile & Tablet responsive"
+          ]
+        },
+        {
+          "title": "E-Commerce Website",
+          "price": "Rs. 30,000 - Rs. 60,000",
+          "duration": "14-21 Days",
+          "features": [
+            "Full online store with catalog & cart",
+            "Payment Gateway (Razorpay/Stripe) integration",
+            "Customer order & inventory dashboard",
+            "Shipping & tax calculator",
+            "Coupon & discount codes system"
+          ]
+        },
+        {
+          "title": "Custom Web Application",
+          "price": "Rs. 50,000+",
+          "duration": "3-6 Weeks",
+          "features": [
+            "MERN / Full-Stack custom architecture",
+            "Role-based access control (RBAC)",
+            "Custom API integrations & database design",
+            "High scalability & automated backups",
+            "Dedicated Admin panel"
+          ]
+        },
+        {
+          "title": "Shopify Store Setup",
+          "price": "Rs. 15,000 - Rs. 25,000",
+          "duration": "5-8 Days",
+          "features": [
+            "Premium theme customization",
+            "Product upload & collection configuration",
+            "Payment & shipping setup",
+            "Conversion apps setup",
+            "Mobile responsive"
+          ]
+        },
+        {
+          "title": "WooCommerce Setup",
+          "price": "Rs. 12,000 - Rs. 20,000",
+          "duration": "5-7 Days",
+          "features": [
+            "WordPress & WooCommerce configuration",
+            "Payment gateway setup",
+            "Product catalog structuring",
+            "Security & speed hardening",
+            "Mobile responsive"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "app-development",
+      "name": "App Development",
+      "description": "Native and cross-platform mobile apps for Android & iOS built with modern frameworks.",
+      "icon": "Smartphone",
+      "items": [
+        {
+          "title": "Basic Android App",
+          "price": "Rs. 20,000 - Rs. 35,000",
+          "duration": "10-15 Days",
+          "features": [
+            "Native/Hybrid Android application",
+            "User friendly interface",
+            "Basic API integration",
+            "Play Store submission guidance"
+          ]
+        },
+        {
+          "title": "E-Commerce App",
+          "price": "Rs. 50,000 - Rs. 90,000",
+          "duration": "20-30 Days",
+          "features": [
+            "Complete shopping cart & catalog",
+            "Payment gateway & wallet integration",
+            "Live order tracking",
+            "Push notifications for offers"
+          ]
+        },
+        {
+          "title": "Food Delivery App (Swiggy Type)",
+          "price": "Rs. 80,000 - Rs. 1,50,000",
+          "duration": "4-6 Weeks",
+          "features": [
+            "Customer App + Delivery Partner App + Restaurant Panel",
+            "Live GPS tracking & route mapping",
+            "Automated commission & payout system",
+            "Instant order alerts & receipts"
+          ]
+        },
+        {
+          "title": "On-Demand Service App",
+          "price": "Rs. 90,000 - Rs. 2,00,000",
+          "duration": "5-7 Weeks",
+          "features": [
+            "Customer booking & service provider dispatch",
+            "In-app messaging & rating system",
+            "Payment escrow & invoice generation",
+            "Real-time service updates"
+          ]
+        },
+        {
+          "title": "Custom Enterprise App",
+          "price": "Rs. 1,50,000+",
+          "duration": "Custom",
+          "features": [
+            "Complex business workflow automation",
+            "Multi-tenant architecture",
+            "Enterprise ERP/CRM integrations",
+            "High-grade security & compliance"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "industry-apps",
+      "name": "Industry-Specific Solutions",
+      "description": "Turnkey tailored digital systems for prominent business verticals.",
+      "icon": "Layers",
+      "items": [
+        {
+          "title": "Healthcare: Doctor Appointment + Telemedicine",
+          "price": "Rs. 60,000 - Rs. 1,20,000",
+          "features": [
+            "Slot booking & token management",
+            "Video consultation / Telemedicine integration",
+            "Digital prescription generator",
+            "Patient health records (EHR)"
+          ]
+        },
+        {
+          "title": "Education: E-Learning + Quiz App",
+          "price": "Rs. 50,000 - Rs. 90,000",
+          "features": [
+            "Course video streaming & PDF notes",
+            "Interactive timed quizzes with leaderboards",
+            "Student performance analytics",
+            "Certificate generation"
+          ]
+        },
+        {
+          "title": "Retail: Shop + Loyalty Points App",
+          "price": "Rs. 40,000 - Rs. 70,000",
+          "features": [
+            "Barcode scanning & digital catalog",
+            "Loyalty rewards & cashback points",
+            "Customer purchase history",
+            "Special offer push notifications"
+          ]
+        },
+        {
+          "title": "Restaurant: Food Order + Table Booking",
+          "price": "Rs. 45,000 - Rs. 80,000",
+          "features": [
+            "Digital QR menu & contactless ordering",
+            "Table reservation with advance booking",
+            "Kitchen Order Ticket (KOT) workflow",
+            "Billing & discount management"
+          ]
+        },
+        {
+          "title": "Fitness: Workout + Diet Tracker",
+          "price": "Rs. 40,000 - Rs. 75,000",
+          "features": [
+            "Custom exercise routine builder",
+            "Calorie & macro nutrition counter",
+            "Daily water & step progress tracking",
+            "Trainer chat & subscriptions"
+          ]
+        },
+        {
+          "title": "Transport: Cab / Delivery Booking",
+          "price": "Rs. 80,000 - Rs. 1,50,000",
+          "features": [
+            "Live ride hailing & pricing calculation",
+            "Driver & rider mutual rating",
+            "Turn-by-turn Google Maps routing",
+            "SOS emergency integration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "app-addons-bundles",
+      "name": "App Add-ons & Bundles",
+      "description": "Essential modular upgrades and all-in-one launch packages.",
+      "icon": "Package",
+      "items": [
+        {
+          "title": "Starter App Bundle",
+          "price": "Rs. 25,000",
+          "type": "Bundle",
+          "features": [
+            "Basic Android App",
+            "Clean UI/UX Design",
+            "Play Store Upload & Publishing"
+          ]
+        },
+        {
+          "title": "Business App Bundle",
+          "price": "Rs. 55,000",
+          "type": "Bundle",
+          "features": [
+            "Cross-Platform App (Android & iOS)",
+            "Payment Gateway Integration",
+            "Admin Panel / Dashboard",
+            "1 Month Support & Monitoring"
+          ]
+        },
+        {
+          "title": "Enterprise App Bundle",
+          "price": "Rs. 1,20,000",
+          "type": "Bundle",
+          "features": [
+            "Custom Full-Feature App",
+            "App Store Optimization (ASO)",
+            "3 Month Active Maintenance",
+            "Ad Campaign Setup"
+          ]
+        },
+        {
+          "title": "UI/UX Design Only",
+          "price": "Rs. 15,000 - Rs. 30,000",
+          "type": "Add-On",
+          "features": [
+            "Figma wireframes & clickable prototypes",
+            "Design system & asset handoff"
+          ]
+        },
+        {
+          "title": "App Store Optimization (ASO)",
+          "price": "Rs. 5,000 / Month",
+          "type": "Add-On",
+          "features": [
+            "Keyword research, title & description optimization",
+            "Visual asset A/B testing"
+          ]
+        },
+        {
+          "title": "App Maintenance",
+          "price": "Rs. 5,000 - Rs. 10,000 / Month",
+          "type": "Add-On",
+          "features": [
+            "OS version compatibility updates",
+            "Bug fixes & server monitoring"
+          ]
+        },
+        {
+          "title": "Push Notification Setup",
+          "price": "Rs. 3,000 (One-Time)",
+          "type": "Add-On",
+          "features": [
+            "Firebase / OneSignal integration",
+            "Segmented campaign triggers"
+          ]
+        },
+        {
+          "title": "Payment Gateway Integration",
+          "price": "Rs. 4,000 (One-Time)",
+          "type": "Add-On",
+          "features": [
+            "Razorpay / Cashfree / Stripe setup",
+            "Webhooks & instant verification"
+          ]
+        },
+        {
+          "title": "Admin Panel / Dashboard",
+          "price": "Rs. 10,000 - Rs. 20,000",
+          "type": "Add-On",
+          "features": [
+            "User management & transaction logs",
+            "Analytics & CSV export"
+          ]
+        },
+        {
+          "title": "Bug Fixing",
+          "price": "Rs. 2,000 - Rs. 8,000 / Issue",
+          "type": "Add-On",
+          "features": [
+            "Crash investigation",
+            "Quick resolution & patch deployment"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ecommerce-bundles",
+      "name": "E-Commerce Bundles & Creative Services",
+      "description": "Scale your online store on Shopify, WooCommerce, Amazon, and Flipkart.",
+      "icon": "ShoppingCart",
+      "items": [
+        {
+          "title": "Starter Store Bundle",
+          "price": "Rs. 25,000",
+          "type": "Store Bundle",
+          "features": [
+            "Shopify Setup",
+            "5 Premium Product Designs",
+            "Meta Ads Setup"
+          ]
+        },
+        {
+          "title": "Growth Store Bundle",
+          "price": "Rs. 45,000",
+          "type": "Store Bundle",
+          "features": [
+            "WooCommerce Setup",
+            "20 Product Listings",
+            "Meta + Google Ads Management (1 Month)"
+          ]
+        },
+        {
+          "title": "Elite Store Bundle",
+          "price": "Rs. 80,000",
+          "type": "Store Bundle",
+          "features": [
+            "Custom E-Commerce Store",
+            "50 Products Listed",
+            "All Ads Setup & 1 Mo Management",
+            "Promotional Video Included"
+          ]
+        },
+        {
+          "title": "Product Photography Editing",
+          "price": "Rs. 200 / Image",
+          "type": "Creative",
+          "features": [
+            "Background removal & shadow styling",
+            "Color enhancement & retouching"
+          ]
+        },
+        {
+          "title": "Product Listing Design",
+          "price": "Rs. 300 / Listing",
+          "type": "Creative",
+          "features": [
+            "Infographics & feature highlights",
+            "Optimized image ratios for marketplaces"
+          ]
+        },
+        {
+          "title": "Amazon A+ Content Design",
+          "price": "Rs. 3,000 / Product",
+          "type": "Creative",
+          "features": [
+            "Rich media brand storytelling modules",
+            "Comparison charts & lifestyle banners"
+          ]
+        },
+        {
+          "title": "Brand Store Design (Amazon)",
+          "price": "Rs. 8,000 - Rs. 15,000",
+          "type": "Creative",
+          "features": [
+            "Multi-page Amazon storefront",
+            "Category navigation & header banners"
+          ]
+        },
+        {
+          "title": "Product Video (30 sec)",
+          "price": "Rs. 3,000 - Rs. 5,000",
+          "type": "Creative",
+          "features": [
+            "High energy product showcase reel",
+            "Voiceover & motion text"
+          ]
+        },
+        {
+          "title": "Product SEO & Listing Optimization",
+          "price": "Rs. 5,000 / Month",
+          "type": "Optimization",
+          "features": [
+            "Backend search terms & keyword indexing",
+            "Title & bullet point copywriting"
+          ]
+        },
+        {
+          "title": "Competitor Analysis Report",
+          "price": "Rs. 3,000 (One-Time)",
+          "type": "Analytics",
+          "features": [
+            "Pricing & keyword gap audit",
+            "Ad creative benchmarking"
+          ]
+        },
+        {
+          "title": "Monthly Performance Report",
+          "price": "Rs. 2,000 / Month",
+          "type": "Analytics",
+          "features": [
+            "Traffic, conversion rate & revenue metrics",
+            "Actionable recommendations"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "creative-video",
+      "name": "Creative Graphic & Video Production",
+      "description": "Engaging visual designs and viral short-form video reels that stop the scroll.",
+      "icon": "Video",
+      "items": [
+        {
+          "title": "Short Reel / Story (under 60 sec)",
+          "price": "Rs. 800 - Rs. 1,500 / Video",
+          "category": "Video Editing",
+          "features": [
+            "Trending audio & sound effects",
+            "Dynamic captions, transitions & color grading",
+            "Designed for IG Reels & YouTube Shorts"
+          ]
+        },
+        {
+          "title": "YouTube Video (5-10 min)",
+          "price": "Rs. 2,000 - Rs. 4,000 / Video",
+          "category": "Video Editing",
+          "features": [
+            "Multi-cam & B-roll pacing",
+            "Audio mastering & noise reduction",
+            "Engaging thumbnail concept"
+          ]
+        },
+        {
+          "title": "Promotional / Ad Video",
+          "price": "Rs. 3,000 - Rs. 6,000 / Video",
+          "category": "Video Editing",
+          "features": [
+            "Script hooks & CTA focus",
+            "Motion graphics & product animations",
+            "High conversion ad format"
+          ]
+        },
+        {
+          "title": "Monthly Video Package (8 Reels)",
+          "price": "Rs. 8,000 / Month",
+          "category": "Video Editing",
+          "features": [
+            "8 High-converting vertical reels",
+            "Scripting assistance & hook curation",
+            "Quick turnarounds"
+          ]
+        },
+        {
+          "title": "Social Media Post (1 Design)",
+          "price": "Rs. 300 - Rs. 500",
+          "category": "Graphic Design",
+          "features": [
+            "Brand aligned creative",
+            "High resolution source files"
+          ]
+        },
+        {
+          "title": "Logo Design",
+          "price": "Rs. 2,000 - Rs. 5,000",
+          "category": "Graphic Design",
+          "features": [
+            "3 Unique concept directions",
+            "Vector AI/EPS/SVG & transparent PNG formats",
+            "Full commercial copyright"
+          ]
+        },
+        {
+          "title": "Banner / Poster",
+          "price": "Rs. 500 - Rs. 1,500",
+          "category": "Graphic Design",
+          "features": [
+            "Print & web ready formats",
+            "High resolution graphics"
+          ]
+        },
+        {
+          "title": "Monthly Package (15 Designs)",
+          "price": "Rs. 5,000 / Month",
+          "category": "Graphic Design",
+          "features": [
+            "15 Custom branded social media posts",
+            "Story templates & carousel slides"
+          ]
+        },
+        {
+          "title": "Brand Identity Kit",
+          "price": "Rs. 8,000 - Rs. 15,000",
+          "category": "Graphic Design",
+          "features": [
+            "Logo + Typography + Color Palette",
+            "Business card & letterhead",
+            "Brand guideline PDF book"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "digital-ads",
+      "name": "Performance Marketing & Ads",
+      "description": "High ROI campaigns across Meta, Google, Amazon, and Flipkart.",
+      "icon": "TrendingUp",
+      "items": [
+        {
+          "title": "Meta Ads Basic Setup Only",
+          "price": "Rs. 3,000 (One-Time)",
+          "platform": "Meta (Facebook + Instagram)",
+          "features": [
+            "Pixel & Conversions API setup",
+            "Audience creation & target grouping"
+          ]
+        },
+        {
+          "title": "Meta Ads 1 Campaign Monthly",
+          "price": "Rs. 5,000 / Month",
+          "platform": "Meta (Facebook + Instagram)",
+          "features": [
+            "1 Campaign management & ongoing A/B testing",
+            "Weekly budget & bid optimization",
+            "Monthly performance report"
+          ]
+        },
+        {
+          "title": "Meta Ads 3 Campaigns Monthly",
+          "price": "Rs. 8,000 / Month",
+          "platform": "Meta (Facebook + Instagram)",
+          "features": [
+            "3 Active campaigns (Top, Middle, Bottom funnel)",
+            "Custom audience & lookalike modeling",
+            "Creative fatigue monitoring"
+          ]
+        },
+        {
+          "title": "Meta Ads Full Management + Creative",
+          "price": "Rs. 12,000 / Month",
+          "platform": "Meta (Facebook + Instagram)",
+          "features": [
+            "Complete campaign management",
+            "Includes custom ad creatives & copy",
+            "Daily optimization & scale management"
+          ]
+        },
+        {
+          "title": "Google Ads Setup Only",
+          "price": "Rs. 4,000 (One-Time)",
+          "platform": "Google Ads",
+          "features": [
+            "Search campaign setup",
+            "Keyword intent research & negative keywords",
+            "Conversion tracking tag"
+          ]
+        },
+        {
+          "title": "Google Ads Monthly Management",
+          "price": "Rs. 6,000 / Month",
+          "platform": "Google Ads",
+          "features": [
+            "Search / Display campaign monitoring",
+            "Negative keyword harvesting",
+            "Bid adjustments for higher Quality Score"
+          ]
+        },
+        {
+          "title": "Google Ads Full Management + Optimization",
+          "price": "Rs. 10,000 / Month",
+          "platform": "Google Ads",
+          "features": [
+            "Search + Display + Performance Max campaigns",
+            "Advanced bidding strategy (tCPA / tROAS)",
+            "Bi-weekly ROI reporting"
+          ]
+        },
+        {
+          "title": "Amazon / Flipkart Ads Setup",
+          "price": "Rs. 5,000 (One-Time)",
+          "platform": "Marketplace Ads",
+          "features": [
+            "Sponsored Products & Brands setup",
+            "Keyword harvesting & bid setup"
+          ]
+        },
+        {
+          "title": "Amazon / Flipkart Monthly Management",
+          "price": "Rs. 8,000 / Month",
+          "platform": "Marketplace Ads",
+          "features": [
+            "ACOS optimization & daily bidding",
+            "Inventory-linked budget pacing"
+          ]
+        },
+        {
+          "title": "Meta Ads for E-Commerce",
+          "price": "Rs. 10,000 / Month",
+          "platform": "E-Commerce Ads",
+          "features": [
+            "Catalog sales & dynamic retargeting (DPA)",
+            "Cart abandonment remarketing"
+          ]
+        },
+        {
+          "title": "Google Shopping Ads",
+          "price": "Rs. 8,000 / Month",
+          "platform": "E-Commerce Ads",
+          "features": [
+            "Google Merchant Center feed optimization",
+            "Smart Shopping & Performance Max setup"
+          ]
+        },
+        {
+          "title": "Full E-Commerce Ads Bundle",
+          "price": "Rs. 20,000 / Month",
+          "platform": "Omnichannel Ads",
+          "features": [
+            "Complete Meta + Google + Marketplace management",
+            "Holistic ROAS tracking & scale strategy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mega-plans",
+      "name": "Mega Growth Plans (All-in-One)",
+      "description": "Comprehensive full-stack digital marketing & tech domination plans.",
+      "icon": "Crown",
+      "items": [
+        {
+          "title": "Market Dominator Plan",
+          "tagline": "Market mein chhap chhodne ke liye",
+          "audience": "Established Businesses",
+          "price": "Rs. 65,000 / month",
+          "isPopular": true,
+          "savings": "Over ₹32,000 savings compared to standalone services",
+          "services": [
+            {
+              "name": "Website Development",
+              "details": "Advanced Website + On-Page SEO + Speed Optimization + SSL",
+              "value": "Rs. 25,000"
+            },
+            {
+              "name": "E-Commerce",
+              "details": "Full Online Store Setup + Product Listing + Payment Gateway",
+              "value": "Rs. 30,000"
+            },
+            {
+              "name": "Graphic Designing",
+              "details": "20 Premium Creatives + Brand Identity Kit + Story + Highlights",
+              "value": "Rs. 10,000"
+            },
+            {
+              "name": "Meta Ads",
+              "details": "3 Campaign Management — Retargeting + Lookalike + Conversion Ads",
+              "value": "Rs. 12,000"
+            },
+            {
+              "name": "Google Ads",
+              "details": "2 Campaigns — Search + Shopping Ads + Full Optimization",
+              "value": "Rs. 10,000"
+            },
+            {
+              "name": "Video Editing",
+              "details": "8 Reels + 1 Professional Promotional Video / Month",
+              "value": "Rs. 10,000"
+            }
+          ],
+          "bonuses": [
+            "FREE Live Analytics Dashboard",
+            "FREE Monthly Strategy & Growth Session",
+            "Dedicated Account Manager",
+            "Priority 24/7 Support"
+          ]
+        },
+        {
+          "title": "Enterprise Elite Plan",
+          "tagline": "Bade brands ke liye — sab kuch, zero compromise",
+          "audience": "Large Companies & Enterprises",
+          "price": "Rs. 1,20,000 / month",
+          "isPopular": false,
+          "savings": "All-in-one unmatched enterprise package",
+          "services": [
+            {
+              "name": "Website Development",
+              "details": "Custom Web Application + Advanced SEO + CMS + Multi-language Support",
+              "value": "Rs. 50,000"
+            },
+            {
+              "name": "App Development",
+              "details": "Cross Platform Mobile App (Android + iOS) + Admin Panel + Maintenance",
+              "value": "Rs. 60,000"
+            },
+            {
+              "name": "E-Commerce",
+              "details": "Complete E-Commerce Ecosystem — Amazon + Flipkart + Own Store Management",
+              "value": "Rs. 30,000"
+            },
+            {
+              "name": "Graphic Designing",
+              "details": "Unlimited Designs + Full Branding + Brand Guidelines Document",
+              "value": "Rs. 15,000"
+            },
+            {
+              "name": "Meta Ads",
+              "details": "Full Meta Campaign Management — All Ad Types + Creative Testing",
+              "value": "Rs. 15,000"
+            },
+            {
+              "name": "Google Ads",
+              "details": "Full Google Campaign — Search + Display + YouTube + Shopping",
+              "value": "Rs. 15,000"
+            },
+            {
+              "name": "Video Editing",
+              "details": "Unlimited Reels + Monthly Ad Videos + YouTube Thumbnails",
+              "value": "Rs. 12,000"
+            }
+          ],
+          "bonuses": [
+            "Dedicated Senior Technical Lead & Creative Director",
+            "Custom Real-time Business Intelligence Dashboard",
+            "Bi-weekly Growth Hacking Consultation",
+            "100% SLA Guarantee & 24/7 VIP Escalation Channel"
+          ]
+        }
+      ]
+    }
+  ]
+}
