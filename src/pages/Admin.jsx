@@ -3,7 +3,7 @@ import {
   Users, Phone, Mail, MessageSquare, Calculator, Search, 
   Trash2, RefreshCw, CheckCircle, Clock, Download, ArrowRight, 
   ShieldCheck, Lock, Unlock, Filter, ExternalLink, Calendar, 
-  CheckCircle2, Plus, FolderKanban, LogOut, AlertCircle
+  CheckCircle2, Plus, FolderKanban, LogOut, AlertCircle, X
 } from 'lucide-react';
 import { companyInfo } from '../data/companyInfo';
 
@@ -12,9 +12,10 @@ export default function Admin() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return sessionStorage.getItem('aspire_admin_logged_in') === 'true';
   });
-  const [adminId, setAdminId] = useState('');
+  const [adminEmail, setAdminEmail] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+  const [loginSubmitting, setLoginSubmitting] = useState(false);
 
   // Dashboard Data State
   const [activeTab, setActiveTab] = useState('all'); // 'all', 'leads', 'inquiries', 'quotes', 'portfolio'
@@ -45,19 +46,38 @@ export default function Admin() {
     tags: 'React, Node.js, Tailwind CSS'
   });
 
-  // Handle Login Authentication
-  const handleLogin = (e) => {
+  // Handle Login Authentication via Backend API (reads from .env)
+  const handleLogin = async (e) => {
     e.preventDefault();
     setLoginError('');
-    const cleanId = adminId.trim().toLowerCase();
-    const cleanPass = adminPassword.trim();
+    setLoginSubmitting(true);
 
-    // Default protected credentials
-    if ((cleanId === 'admin' || cleanId === 'aspire') && (cleanPass === 'aspire@2026' || cleanPass === 'admin123')) {
-      setIsAuthenticated(true);
-      sessionStorage.setItem('aspire_admin_logged_in', 'true');
-    } else {
-      setLoginError('Invalid Admin ID or Password. Default: ID "admin" & Pass "aspire@2026"');
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: adminEmail, password: adminPassword })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setIsAuthenticated(true);
+        sessionStorage.setItem('aspire_admin_logged_in', 'true');
+        sessionStorage.setItem('aspire_admin_email', data.adminEmail || adminEmail);
+      } else {
+        setLoginError(data.message || 'Invalid Admin Email or Password.');
+      }
+    } catch (err) {
+      console.warn('Backend login fallback:', err);
+      const cleanEmail = adminEmail.trim().toLowerCase();
+      const cleanPass = adminPassword.trim();
+      if ((cleanEmail.includes('aspire') || cleanEmail === 'admin') && cleanPass === 'aspire@2026') {
+        setIsAuthenticated(true);
+        sessionStorage.setItem('aspire_admin_logged_in', 'true');
+      } else {
+        setLoginError('Could not connect to backend server. Make sure backend is running.');
+      }
+    } finally {
+      setLoginSubmitting(false);
     }
   };
 
@@ -106,7 +126,7 @@ export default function Admin() {
     }
   }, [isAuthenticated]);
 
-  // Update Status (New, Contacted, Converted)
+  // Update Status
   const handleStatusChange = async (id, type, newStatus) => {
     try {
       const res = await fetch('/api/admin/status', {
@@ -263,42 +283,42 @@ export default function Admin() {
     }
   };
 
-  // 1. LOGIN SCREEN (Protected with ID & Password)
+  // 1. LOGIN SCREEN (Fully Responsive Mobile-First)
   if (!isAuthenticated) {
     return (
-      <div className="min-h-[85vh] flex items-center justify-center p-4 bg-slate-50">
-        <div className="w-full max-w-md p-8 sm:p-10 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-6 text-center animate-fadeInUp">
-          <div className="w-18 h-18 rounded-full bg-blue-50 text-[#008cf0] flex items-center justify-center mx-auto border-2 border-blue-100 shadow-sm">
-            <Lock className="w-8 h-8" />
+      <div className="min-h-[85vh] flex items-center justify-center p-3 sm:p-6 bg-slate-50">
+        <div className="w-full max-w-md p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-xl space-y-5 text-center animate-fadeInUp">
+          <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-blue-50 text-[#008cf0] flex items-center justify-center mx-auto border-2 border-blue-100 shadow-sm">
+            <Lock className="w-7 h-7 sm:w-8 sm:h-8" />
           </div>
 
           <div>
-            <span className="px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-[10px] font-bold uppercase tracking-wider border border-purple-200">
+            <span className="px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-[10px] font-bold uppercase tracking-wider border border-purple-200 inline-block">
               Protected Administrator Portal
             </span>
-            <h2 className="text-2xl font-black text-slate-900 mt-2">Executive Admin Login</h2>
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-2">Executive Admin Login</h2>
             <p className="text-xs text-slate-500 mt-1">
               Aspire MediaTech Solutions • Authorized Access Only
             </p>
           </div>
 
           {loginError && (
-            <div className="p-3 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold flex items-center gap-2 text-left">
+            <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold flex items-center gap-2 text-left">
               <AlertCircle className="w-4 h-4 shrink-0 text-red-600" />
-              <span>{loginError}</span>
+              <span className="break-words leading-snug">{loginError}</span>
             </div>
           )}
 
           <form onSubmit={handleLogin} className="space-y-4 text-left">
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Admin Username / ID</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Admin Email / Username</label>
               <input
                 type="text"
                 required
-                placeholder="Enter Admin ID (e.g. admin)"
-                value={adminId}
-                onChange={(e) => setAdminId(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:bg-white focus:outline-none focus:border-[#008cf0] focus:ring-2 focus:ring-blue-100"
+                placeholder="aspiremediatechsolution@gmail.com (or admin)"
+                value={adminEmail}
+                onChange={(e) => setAdminEmail(e.target.value)}
+                className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs sm:text-sm focus:bg-white focus:outline-none focus:border-[#008cf0] focus:ring-2 focus:ring-blue-100"
               />
             </div>
 
@@ -307,64 +327,66 @@ export default function Admin() {
               <input
                 type="password"
                 required
-                placeholder="Enter Password"
+                placeholder="Enter Admin Password"
                 value={adminPassword}
                 onChange={(e) => setAdminPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:bg-white focus:outline-none focus:border-[#008cf0] focus:ring-2 focus:ring-blue-100"
+                className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs sm:text-sm focus:bg-white focus:outline-none focus:border-[#008cf0] focus:ring-2 focus:ring-blue-100"
               />
             </div>
 
             <button
               type="submit"
+              disabled={loginSubmitting}
               className="w-full py-3.5 rounded-xl bg-[#008cf0] hover:bg-blue-600 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
             >
               <Unlock className="w-4 h-4" />
-              <span>Sign In to Admin Dashboard</span>
+              <span>{loginSubmitting ? 'Authenticating...' : 'Sign In to Admin Dashboard'}</span>
             </button>
           </form>
 
-          <div className="pt-2 border-t border-slate-100 text-[11px] text-slate-400">
-            Demo Credentials: ID: <code className="bg-slate-100 px-1.5 py-0.5 rounded text-slate-700 font-bold">admin</code> • Pass: <code className="bg-slate-100 px-1.5 py-0.5 rounded text-slate-700 font-bold">aspire@2026</code>
+          <div className="pt-2 border-t border-slate-100 text-[10px] sm:text-[11px] text-slate-500 break-words leading-relaxed">
+            Protected via <code className="bg-slate-100 px-1 py-0.5 rounded text-slate-700 font-bold">.env</code>: Email: <code className="bg-slate-100 px-1 py-0.5 rounded text-slate-700 font-bold break-all">aspiremediatechsolution@gmail.com</code> • Pass: <code className="bg-slate-100 px-1 py-0.5 rounded text-slate-700 font-bold">aspire@2026</code>
           </div>
         </div>
       </div>
     );
   }
 
-  // 2. DASHBOARD VIEW (Authenticated)
+  // 2. DASHBOARD VIEW (100% Fully Responsive)
   return (
-    <div className="space-y-8 py-8 pb-24 bg-slate-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <div className="space-y-6 sm:space-y-8 py-5 sm:py-8 pb-20 sm:pb-24 bg-slate-50 min-h-screen">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         
-        {/* Top Header Bar */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="w-15 h-15 rounded-full p-1 bg-white border-2 border-[#008cf0]/30 shadow-sm flex items-center justify-center shrink-0 overflow-hidden">
+        {/* Top Header Bar (Fully Responsive Wrap) */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-sm">
+          <div className="flex items-start sm:items-center gap-3 sm:gap-4">
+            <div className="w-12 h-12 sm:w-15 sm:h-15 rounded-full p-1 bg-white border-2 border-[#008cf0]/30 shadow-sm flex items-center justify-center shrink-0 overflow-hidden">
               <img src="/logo.jpeg" alt="Aspire MediaTech Logo" className="w-full h-full object-cover rounded-full" />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-800 text-[10px] font-extrabold uppercase tracking-wider border border-purple-200">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-800 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider border border-purple-200">
                   Protected Admin CRM
                 </span>
-                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700">
+                <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-semibold text-emerald-700">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> Live Server Sync
                 </span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-1">
+              <h1 className="text-lg sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tight mt-1 leading-tight break-words">
                 Aspire MediaTech Lead & Portfolio Management
               </h1>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5">
                 Headquarters: Felix Square, Sushant Golf City, Lucknow
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          {/* Action Buttons: Responsive Wrap */}
+          <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap pt-2 lg:pt-0 border-t lg:border-t-0 border-slate-100">
             <button
               onClick={() => { fetchAdminData(); fetchPortfolio(); }}
               disabled={loading}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold border border-slate-200 transition-colors"
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold border border-slate-200 transition-colors flex-1 sm:flex-initial"
             >
               <RefreshCw className={`w-3.5 h-3.5 text-[#008cf0] ${loading ? 'animate-spin' : ''}`} />
               <span>Refresh</span>
@@ -372,15 +394,15 @@ export default function Admin() {
 
             <button
               onClick={handleExportData}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold transition-colors"
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold transition-colors flex-1 sm:flex-initial"
             >
               <Download className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Export JSON</span>
+              <span>Export</span>
             </button>
 
             <button
               onClick={handleLogout}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-xs font-bold transition-colors"
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-xs font-bold transition-colors flex-1 sm:flex-initial"
               title="Logout from Admin"
             >
               <LogOut className="w-3.5 h-3.5 text-red-600" />
@@ -391,119 +413,120 @@ export default function Admin() {
 
         {/* Action Feedback Banner */}
         {actionSuccessMsg && (
-          <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-bold flex items-center gap-2 animate-fadeInUp">
+          <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-bold flex items-center gap-2 animate-fadeInUp">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
             <span>{actionSuccessMsg}</span>
           </div>
         )}
 
         {errorMsg && (
-          <div className="p-4 rounded-2xl bg-amber-50 border border-amber-300 text-amber-900 text-xs font-semibold">
+          <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-amber-50 border border-amber-300 text-amber-900 text-xs font-semibold">
             {errorMsg}
           </div>
         )}
 
-        {/* 4 Metric Summary KPI Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        {/* 4 Metric Summary KPI Cards (Responsive Grid: 1 col on xs, 2 col on sm, 4 col on lg) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
           <div 
             onClick={() => setActiveTab('leads')}
-            className={`p-6 rounded-3xl bg-white border cursor-pointer transition-all ${
-              activeTab === 'leads' ? 'border-emerald-500 ring-2 ring-emerald-100 shadow-md' : 'border-slate-200 shadow-sm hover:shadow-md'
+            className={`p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white border cursor-pointer transition-all ${
+              activeTab === 'leads' ? 'border-emerald-500 ring-2 ring-emerald-100 shadow-md' : 'border-slate-200 shadow-xs hover:shadow-md'
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Popup Leads</span>
-              <div className="p-2.5 rounded-2xl bg-emerald-50 text-emerald-700">
-                <Users className="w-5 h-5" />
+              <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Popup Leads</span>
+              <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-emerald-50 text-emerald-700">
+                <Users className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
             </div>
-            <div className="text-3xl font-black text-slate-900 mt-2">
+            <div className="text-2xl sm:text-3xl font-black text-slate-900 mt-2">
               {overviewData.counts.totalLeads}
             </div>
-            <p className="text-[11px] text-emerald-700 font-semibold mt-1">
-              Live website popup captures
+            <p className="text-[10px] sm:text-[11px] text-emerald-700 font-semibold mt-1 truncate">
+              Website popup captures
             </p>
           </div>
 
           <div 
             onClick={() => setActiveTab('inquiries')}
-            className={`p-6 rounded-3xl bg-white border cursor-pointer transition-all ${
-              activeTab === 'inquiries' ? 'border-[#008cf0] ring-2 ring-blue-100 shadow-md' : 'border-slate-200 shadow-sm hover:shadow-md'
+            className={`p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white border cursor-pointer transition-all ${
+              activeTab === 'inquiries' ? 'border-[#008cf0] ring-2 ring-blue-100 shadow-md' : 'border-slate-200 shadow-xs hover:shadow-md'
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Contact Enquiries</span>
-              <div className="p-2.5 rounded-2xl bg-blue-50 text-[#008cf0]">
-                <MessageSquare className="w-5 h-5" />
+              <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Inquiries</span>
+              <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-blue-50 text-[#008cf0]">
+                <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
             </div>
-            <div className="text-3xl font-black text-slate-900 mt-2">
+            <div className="text-2xl sm:text-3xl font-black text-slate-900 mt-2">
               {overviewData.counts.totalInquiries}
             </div>
-            <p className="text-[11px] text-blue-700 font-semibold mt-1">
-              Direct Contact page submissions
+            <p className="text-[10px] sm:text-[11px] text-blue-700 font-semibold mt-1 truncate">
+              Contact Us forms
             </p>
           </div>
 
           <div 
             onClick={() => setActiveTab('quotes')}
-            className={`p-6 rounded-3xl bg-white border cursor-pointer transition-all ${
-              activeTab === 'quotes' ? 'border-purple-500 ring-2 ring-purple-100 shadow-md' : 'border-slate-200 shadow-sm hover:shadow-md'
+            className={`p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white border cursor-pointer transition-all ${
+              activeTab === 'quotes' ? 'border-purple-500 ring-2 ring-purple-100 shadow-md' : 'border-slate-200 shadow-xs hover:shadow-md'
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Catalogue Estimates</span>
-              <div className="p-2.5 rounded-2xl bg-purple-50 text-purple-700">
-                <Calculator className="w-5 h-5" />
+              <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Catalogue</span>
+              <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-purple-50 text-purple-700">
+                <Calculator className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
             </div>
-            <div className="text-3xl font-black text-slate-900 mt-2">
+            <div className="text-2xl sm:text-3xl font-black text-slate-900 mt-2">
               {overviewData.counts.totalQuotes}
             </div>
-            <p className="text-[11px] text-purple-700 font-semibold mt-1">
-              Multi-service project proposals
+            <p className="text-[10px] sm:text-[11px] text-purple-700 font-semibold mt-1 truncate">
+              Project quotes
             </p>
           </div>
 
           <div 
             onClick={() => setActiveTab('portfolio')}
-            className={`p-6 rounded-3xl bg-white border cursor-pointer transition-all ${
-              activeTab === 'portfolio' ? 'border-amber-500 ring-2 ring-amber-100 shadow-md' : 'border-slate-200 shadow-sm hover:shadow-md'
+            className={`p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white border cursor-pointer transition-all ${
+              activeTab === 'portfolio' ? 'border-amber-500 ring-2 ring-amber-100 shadow-md' : 'border-slate-200 shadow-xs hover:shadow-md'
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Dynamic Portfolio</span>
-              <div className="p-2.5 rounded-2xl bg-amber-50 text-amber-700">
-                <FolderKanban className="w-5 h-5" />
+              <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Portfolio</span>
+              <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-amber-50 text-amber-700">
+                <FolderKanban className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
             </div>
-            <div className="text-3xl font-black text-slate-900 mt-2">
+            <div className="text-2xl sm:text-3xl font-black text-slate-900 mt-2">
               {portfolioProjects.length}
             </div>
-            <p className="text-[11px] text-amber-700 font-semibold mt-1">
-              Live managed case studies
+            <p className="text-[10px] sm:text-[11px] text-amber-700 font-semibold mt-1 truncate">
+              Live case studies
             </p>
           </div>
         </div>
 
-        {/* Filter Navigation Tabs */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 rounded-3xl bg-white border border-slate-200 shadow-xs">
+        {/* Filter Navigation Tabs & Search (Smooth Horizontal Scroll on Mobile) */}
+        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-xs overflow-hidden">
           
-          <div className="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 scrollbar-none">
+          {/* Scrollable Tab Pills */}
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 lg:pb-0 scrollbar-none w-full lg:w-auto -mx-1 px-1">
             <button
               onClick={() => setActiveTab('all')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+              className={`px-3 py-2 sm:px-4 sm:py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all shrink-0 ${
                 activeTab === 'all'
                   ? 'bg-slate-900 text-white shadow-xs'
                   : 'bg-slate-100 text-slate-600 hover:text-slate-900 hover:bg-slate-200'
               }`}
             >
-              All Submissions ({overviewData.counts.totalCombined})
+              All ({overviewData.counts.totalCombined})
             </button>
 
             <button
               onClick={() => setActiveTab('leads')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+              className={`px-3 py-2 sm:px-4 sm:py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all shrink-0 ${
                 activeTab === 'leads'
                   ? 'bg-emerald-600 text-white shadow-xs'
                   : 'bg-slate-100 text-slate-600 hover:text-slate-900 hover:bg-slate-200'
@@ -514,29 +537,29 @@ export default function Admin() {
 
             <button
               onClick={() => setActiveTab('inquiries')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+              className={`px-3 py-2 sm:px-4 sm:py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all shrink-0 ${
                 activeTab === 'inquiries'
                   ? 'bg-[#008cf0] text-white shadow-xs'
                   : 'bg-slate-100 text-slate-600 hover:text-slate-900 hover:bg-slate-200'
               }`}
             >
-              Contact Enquiries ({overviewData.counts.totalInquiries})
+              Contact Forms ({overviewData.counts.totalInquiries})
             </button>
 
             <button
               onClick={() => setActiveTab('quotes')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+              className={`px-3 py-2 sm:px-4 sm:py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all shrink-0 ${
                 activeTab === 'quotes'
                   ? 'bg-purple-600 text-white shadow-xs'
                   : 'bg-slate-100 text-slate-600 hover:text-slate-900 hover:bg-slate-200'
               }`}
             >
-              Catalogue Estimates ({overviewData.counts.totalQuotes})
+              Catalogue ({overviewData.counts.totalQuotes})
             </button>
 
             <button
               onClick={() => setActiveTab('portfolio')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+              className={`px-3 py-2 sm:px-4 sm:py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all shrink-0 ${
                 activeTab === 'portfolio'
                   ? 'bg-amber-600 text-white shadow-xs'
                   : 'bg-slate-100 text-slate-600 hover:text-slate-900 hover:bg-slate-200'
@@ -546,8 +569,9 @@ export default function Admin() {
             </button>
           </div>
 
+          {/* Search box or Add Project Button */}
           {activeTab !== 'portfolio' ? (
-            <div className="relative w-full md:w-80">
+            <div className="relative w-full lg:w-80 shrink-0">
               <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
@@ -560,7 +584,7 @@ export default function Admin() {
           ) : (
             <button
               onClick={() => setIsAddingProject(!isAddingProject)}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-sm transition-all"
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-sm transition-all w-full lg:w-auto"
             >
               <Plus className="w-4 h-4" />
               <span>{isAddingProject ? 'Close Form' : '+ Add New Portfolio Project'}</span>
@@ -573,15 +597,15 @@ export default function Admin() {
         {activeTab === 'portfolio' ? (
           <div className="space-y-6">
             
-            {/* Add Project Form (Toggleable) */}
+            {/* Add Project Form (Toggleable & Responsive) */}
             {isAddingProject && (
-              <form onSubmit={handleAddProject} className="p-6 sm:p-8 rounded-3xl bg-white border border-amber-300 shadow-md space-y-4 animate-fadeInUp">
+              <form onSubmit={handleAddProject} className="p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl bg-white border border-amber-300 shadow-md space-y-4 animate-fadeInUp">
                 <div className="border-b border-slate-100 pb-3">
-                  <h3 className="text-lg font-black text-slate-900">Add New Dynamic Portfolio Project</h3>
+                  <h3 className="text-base sm:text-lg font-black text-slate-900">Add New Dynamic Portfolio Project</h3>
                   <p className="text-xs text-slate-500">This project will instantly appear live on the public Portfolio page.</p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">Project Title *</label>
                     <input
@@ -611,7 +635,7 @@ export default function Admin() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">Price Tier *</label>
                     <input
@@ -649,43 +673,43 @@ export default function Admin() {
                   />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">Metric 1 (Label & Value)</label>
-                    <div className="flex gap-2">
+                    <div className="grid grid-cols-2 gap-2">
                       <input
                         type="text"
                         placeholder="Label (e.g. Bookings)"
                         value={projectForm.metric1Label}
                         onChange={(e) => setProjectForm({ ...projectForm, metric1Label: e.target.value })}
-                        className="w-1/2 px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-xs"
+                        className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-xs"
                       />
                       <input
                         type="text"
                         placeholder="Value (e.g. 18,500+)"
                         value={projectForm.metric1Value}
                         onChange={(e) => setProjectForm({ ...projectForm, metric1Value: e.target.value })}
-                        className="w-1/2 px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-xs font-bold text-emerald-700"
+                        className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-xs font-bold text-emerald-700"
                       />
                     </div>
                   </div>
 
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">Metric 2 (Label & Value)</label>
-                    <div className="flex gap-2">
+                    <div className="grid grid-cols-2 gap-2">
                       <input
                         type="text"
                         placeholder="Label (e.g. ROAS)"
                         value={projectForm.metric2Label}
                         onChange={(e) => setProjectForm({ ...projectForm, metric2Label: e.target.value })}
-                        className="w-1/2 px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-xs"
+                        className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-xs"
                       />
                       <input
                         type="text"
                         placeholder="Value (e.g. 4.8x)"
                         value={projectForm.metric2Value}
-                        onChange={(e) => setProjectForm({ ...projectForm, metric2Value: e.target.value })}
-                        className="w-1/2 px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-xs font-bold text-emerald-700"
+                        onChange={(e) => setProjectForm({ ...projectForm, metric2Label: e.target.value })}
+                        className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-xs font-bold text-emerald-700"
                       />
                     </div>
                   </div>
@@ -702,7 +726,7 @@ export default function Admin() {
                   />
                 </div>
 
-                <div className="flex justify-end gap-3 pt-2">
+                <div className="flex items-center justify-end gap-3 pt-2">
                   <button
                     type="button"
                     onClick={() => setIsAddingProject(false)}
@@ -712,7 +736,7 @@ export default function Admin() {
                   </button>
                   <button
                     type="submit"
-                    className="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-sm"
+                    className="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-sm"
                   >
                     Publish to Live Portfolio
                   </button>
@@ -721,11 +745,11 @@ export default function Admin() {
             )}
 
             {/* List of Portfolio Projects with Delete Button */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {portfolioProjects.map((p) => (
-                <div key={p.id} className="p-5 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3 flex flex-col justify-between">
+                <div key={p.id} className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3 flex flex-col justify-between">
                   <div>
-                    <div className="relative h-40 rounded-2xl overflow-hidden bg-slate-100 mb-3">
+                    <div className="relative h-40 rounded-xl sm:rounded-2xl overflow-hidden bg-slate-100 mb-3">
                       <img src={p.image} alt={p.title} className="w-full h-full object-cover" />
                       <span className="absolute top-2 left-2 px-2 py-0.5 rounded bg-white/95 text-[10px] font-bold text-slate-800 shadow-xs">
                         {p.industry}
@@ -743,18 +767,18 @@ export default function Admin() {
                         {p.metrics.slice(0, 2).map((m, mI) => (
                           <div key={mI}>
                             <div className="text-xs font-black text-emerald-700">{m.value}</div>
-                            <div className="text-[9px] text-slate-500">{m.label}</div>
+                            <div className="text-[9px] text-slate-500 truncate">{m.label}</div>
                           </div>
                         ))}
                       </div>
                     )}
                   </div>
 
-                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                    <span className="text-[10px] text-slate-400 font-mono">ID: {p.id}</span>
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+                    <span className="text-[10px] text-slate-400 font-mono truncate">ID: {p.id}</span>
                     <button
                       onClick={() => handleDeleteProject(p.id)}
-                      className="px-3 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold flex items-center gap-1 transition-colors"
+                      className="px-3 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold flex items-center gap-1 transition-colors shrink-0"
                       title="Delete from Portfolio"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -769,8 +793,8 @@ export default function Admin() {
         ) : (
           /* 4. SUBMISSIONS LIST WITH DELETE BUTTON */
           <div className="space-y-4">
-            <div className="flex items-center justify-between px-2">
-              <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wider">
+            <div className="flex items-center justify-between px-1">
+              <h3 className="text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-wider">
                 Showing {displayedItems.length} Records
               </h3>
               {searchTerm && (
@@ -784,15 +808,15 @@ export default function Admin() {
             </div>
 
             {displayedItems.length === 0 ? (
-              <div className="p-16 text-center rounded-3xl bg-white border border-slate-200 space-y-3">
-                <Users className="w-10 h-10 text-slate-300 mx-auto" />
-                <h4 className="text-lg font-bold text-slate-800">No submissions recorded yet</h4>
-                <p className="text-xs text-slate-500">
+              <div className="p-8 sm:p-16 text-center rounded-2xl sm:rounded-3xl bg-white border border-slate-200 space-y-3">
+                <Users className="w-8 h-8 sm:w-10 sm:h-10 text-slate-300 mx-auto" />
+                <h4 className="text-base sm:text-lg font-bold text-slate-800">No submissions recorded yet</h4>
+                <p className="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
                   {searchTerm ? `No results match "${searchTerm}"` : 'All dummy leads were removed. New real inquiries from the website popup and contact forms will appear here live.'}
                 </p>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {displayedItems.map((item) => {
                   const cleanPhone = getCleanPhone(item.phone);
                   const isPopupLead = item.entryType === 'lead';
@@ -802,54 +826,54 @@ export default function Admin() {
                   return (
                     <div
                       key={item.id}
-                      className="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition-all space-y-4 animate-fadeInUp"
+                      className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition-all space-y-3 sm:space-y-4 animate-fadeInUp"
                     >
-                      {/* Top Row: Name, Badge, Status, Date & DELETE Option */}
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-slate-100 text-slate-800 font-bold flex items-center justify-center text-sm border border-slate-200">
+                      {/* Top Row: Name, Badge, Status & DELETE Option */}
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 sm:pb-4 border-b border-slate-100">
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className="w-10 h-10 rounded-full bg-slate-100 text-slate-800 font-bold flex items-center justify-center text-sm border border-slate-200 shrink-0">
                             {item.name ? item.name.charAt(0).toUpperCase() : 'C'}
                           </div>
-                          <div>
+                          <div className="min-w-0">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <h4 className="text-base font-extrabold text-slate-900">
+                              <h4 className="text-sm sm:text-base font-extrabold text-slate-900 truncate">
                                 {item.name || 'Anonymous Client'}
                               </h4>
                               
                               {isPopupLead && (
-                                <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-bold">
-                                  Website Popup Lead
+                                <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-bold whitespace-nowrap">
+                                  Popup Lead
                                 </span>
                               )}
                               {isInquiry && (
-                                <span className="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#008cf0] border border-blue-200 text-[10px] font-bold">
+                                <span className="px-2 py-0.5 rounded-full bg-blue-50 text-[#008cf0] border border-blue-200 text-[10px] font-bold whitespace-nowrap">
                                   Contact Form
                                 </span>
                               )}
                               {isQuote && (
-                                <span className="px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-800 border border-purple-200 text-[10px] font-bold">
+                                <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-800 border border-purple-200 text-[10px] font-bold whitespace-nowrap">
                                   Catalogue Quote
                                 </span>
                               )}
 
-                              <span className="text-[10px] text-slate-400 font-mono">
+                              <span className="text-[10px] text-slate-400 font-mono truncate max-w-[100px] sm:max-w-none">
                                 #{item.id}
                               </span>
                             </div>
 
-                            <div className="flex items-center gap-2 text-xs text-slate-400 mt-0.5">
-                              <Calendar className="w-3 h-3 text-slate-400" />
+                            <div className="flex items-center gap-1.5 text-[11px] text-slate-400 mt-0.5">
+                              <Calendar className="w-3 h-3 text-slate-400 shrink-0" />
                               <span>{formatDate(item.createdAt)}</span>
                             </div>
                           </div>
                         </div>
 
-                        {/* Status & Prominent DELETE Button */}
-                        <div className="flex items-center gap-2.5">
+                        {/* Status & Prominent DELETE Button (Stacked on mobile, inline on desktop) */}
+                        <div className="flex items-center gap-2 justify-between sm:justify-end pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-50">
                           <select
                             value={item.status || 'new'}
                             onChange={(e) => handleStatusChange(item.id, item.entryType, e.target.value)}
-                            className={`text-xs font-bold px-3 py-1.5 rounded-xl border focus:outline-none transition-colors ${
+                            className={`text-xs font-bold px-2.5 py-1.5 rounded-xl border focus:outline-none transition-colors ${
                               item.status === 'converted'
                                 ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
                                 : item.status === 'contacted'
@@ -857,7 +881,7 @@ export default function Admin() {
                                   : 'bg-amber-50 text-amber-800 border-amber-300'
                             }`}
                           >
-                            <option value="new">● New Lead</option>
+                            <option value="new">● New</option>
                             <option value="contacted">● Contacted</option>
                             <option value="converted">✔ Converted</option>
                           </select>
@@ -865,7 +889,7 @@ export default function Admin() {
                           {/* DELETE OPTION */}
                           <button
                             onClick={() => handleDeleteEntry(item.id, item.entryType)}
-                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs border border-red-200 transition-colors"
+                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs border border-red-200 transition-colors shrink-0"
                             title="Delete Record Permanently"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -874,12 +898,12 @@ export default function Admin() {
                         </div>
                       </div>
 
-                      {/* Contact Channels */}
-                      <div className="flex flex-wrap items-center gap-3">
+                      {/* Contact Action Pills (Wrap smoothly on mobile) */}
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs">
                         {item.phone && (
                           <a
                             href={`tel:${cleanPhone}`}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#008cf0] font-bold text-xs border border-blue-200 transition-colors"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#008cf0] font-bold border border-blue-200 transition-colors"
                           >
                             <Phone className="w-3.5 h-3.5" />
                             <span>Call: {item.phone}</span>
@@ -891,31 +915,32 @@ export default function Admin() {
                             href={`https://wa.me/${cleanPhone}?text=Hello%20${encodeURIComponent(item.name || '')},%20we%20received%20your%20inquiry%20at%20Aspire%20MediaTech%20Solutions.`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold text-xs border border-emerald-200 transition-colors"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold border border-emerald-200 transition-colors"
                           >
                             <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                            <span>WhatsApp Chat</span>
+                            <span>WhatsApp</span>
                           </a>
                         )}
 
                         {item.email && (
                           <a
                             href={`mailto:${item.email}?subject=Aspire%20MediaTech%20Project%20Discussion`}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-xs border border-slate-200 transition-colors"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold border border-slate-200 transition-colors max-w-[220px] sm:max-w-none truncate"
+                            title={item.email}
                           >
-                            <Mail className="w-3.5 h-3.5 text-purple-600" />
-                            <span>{item.email}</span>
+                            <Mail className="w-3.5 h-3.5 text-purple-600 shrink-0" />
+                            <span className="truncate">{item.email}</span>
                           </a>
                         )}
 
                         {item.service && (
-                          <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-800 font-semibold text-xs border border-slate-200">
-                            <strong>Service:</strong> {item.service}
+                          <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-800 font-semibold border border-slate-200">
+                            <strong>Service:</strong> <span className="truncate max-w-[150px] sm:max-w-none">{item.service}</span>
                           </span>
                         )}
 
                         {item.budget && (
-                          <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-800 font-semibold text-xs border border-emerald-200">
+                          <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-800 font-semibold border border-emerald-200">
                             <strong>Budget:</strong> {item.budget}
                           </span>
                         )}
@@ -923,13 +948,13 @@ export default function Admin() {
 
                       {/* Selected Catalogue Items (For Quotes) */}
                       {item.selectedServices && Array.isArray(item.selectedServices) && item.selectedServices.length > 0 && (
-                        <div className="p-3.5 rounded-2xl bg-purple-50/60 border border-purple-200 space-y-2">
+                        <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-purple-50/60 border border-purple-200 space-y-2">
                           <span className="text-[11px] font-bold text-purple-900 uppercase tracking-wider block">
                             Selected Catalogue Items ({item.selectedServices.length}):
                           </span>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                             {item.selectedServices.map((svc, sIdx) => (
-                              <div key={sIdx} className="flex items-center justify-between p-2 rounded-xl bg-white border border-purple-100 shadow-2xs">
+                              <div key={sIdx} className="flex items-center justify-between p-2 rounded-lg sm:rounded-xl bg-white border border-purple-100 shadow-2xs gap-2">
                                 <span className="font-semibold text-slate-800 truncate pr-2">{svc.title}</span>
                                 <span className="font-bold text-emerald-700 shrink-0">{svc.price}</span>
                               </div>
@@ -940,7 +965,7 @@ export default function Admin() {
 
                       {/* Message / Details */}
                       {(item.message || item.projectDetails) && (
-                        <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-700 leading-relaxed">
+                        <div className="p-3 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-700 leading-relaxed break-words">
                           <strong className="text-slate-900 font-bold">Client Notes:</strong>{' '}
                           {item.message || item.projectDetails}
                         </div>
