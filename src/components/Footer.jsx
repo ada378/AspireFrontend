@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className="bg-slate-900 border-t border-slate-800 text-slate-400 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
-          
+
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <Link to="/" className="flex items-center gap-3">
@@ -24,7 +24,7 @@ export default function Footer() {
                 </p>
               </div>
             </Link>
-            
+
             <p className="text-sm text-slate-300 leading-relaxed max-w-sm">
               Headquartered in Lucknow, Aspire MediaTech Solutions bridges the gap between technology and measurable business growth. We deliver production-grade web applications, custom mobile apps, e-commerce ecosystems, and high-converting marketing campaigns.
             </p>

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { portfolioProjects as fallbackProjects } from '../data/portfolioData';
 import { ArrowRight, Sparkles, Search, Layers, RefreshCw } from 'lucide-react';
+import { getApiUrl } from '../config/api';
 
 export default function Portfolio() {
   const [projects, setProjects] = useState(fallbackProjects);
@@ -13,7 +14,7 @@ export default function Portfolio() {
   const fetchDynamicPortfolio = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/portfolio');
+      const res = await fetch(getApiUrl('/api/portfolio'));
       const data = await res.json();
       if (data.success && Array.isArray(data.data) && data.data.length > 0) {
         setProjects(data.data);

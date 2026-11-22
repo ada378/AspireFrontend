@@ -6,6 +6,7 @@ import {
   CheckCircle2, Plus, FolderKanban, LogOut, AlertCircle, X
 } from 'lucide-react';
 import { companyInfo } from '../data/companyInfo';
+import { getApiUrl } from '../config/api';
 
 export default function Admin() {
   // Authentication State
@@ -53,7 +54,7 @@ export default function Admin() {
     setLoginSubmitting(true);
 
     try {
-      const res = await fetch('/api/admin/login', {
+      const res = await fetch(getApiUrl('/api/admin/login'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: adminEmail, password: adminPassword })
@@ -91,7 +92,7 @@ export default function Admin() {
     setLoading(true);
     setErrorMsg('');
     try {
-      const res = await fetch('/api/admin/overview');
+      const res = await fetch(getApiUrl('/api/admin/overview'));
       const data = await res.json();
       if (data.success) {
         setOverviewData(data);
@@ -100,7 +101,7 @@ export default function Admin() {
       }
     } catch (err) {
       console.error('Admin fetch error:', err);
-      setErrorMsg('Could not connect to backend server on port 5000.');
+      setErrorMsg('Could not connect to backend server.');
     } finally {
       setLoading(false);
     }
@@ -109,7 +110,7 @@ export default function Admin() {
   // Fetch Dynamic Portfolio
   const fetchPortfolio = async () => {
     try {
-      const res = await fetch('/api/portfolio');
+      const res = await fetch(getApiUrl('/api/portfolio'));
       const data = await res.json();
       if (data.success && Array.isArray(data.data)) {
         setPortfolioProjects(data.data);
@@ -129,7 +130,7 @@ export default function Admin() {
   // Update Status
   const handleStatusChange = async (id, type, newStatus) => {
     try {
-      const res = await fetch('/api/admin/status', {
+      const res = await fetch(getApiUrl('/api/admin/status'), {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, type, status: newStatus })
@@ -150,7 +151,7 @@ export default function Admin() {
     if (!window.confirm('Are you sure you want to delete this record permanently?')) return;
 
     try {
-      const res = await fetch(`/api/admin/entry/${type}/${id}`, {
+      const res = await fetch(getApiUrl(`/api/admin/entry/${type}/${id}`), {
         method: 'DELETE'
       });
       const data = await res.json();
@@ -182,7 +183,7 @@ export default function Admin() {
         tags: projectForm.tags.split(',').map(t => t.trim()).filter(Boolean)
       };
 
-      const res = await fetch('/api/portfolio', {
+      const res = await fetch(getApiUrl('/api/portfolio'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -215,7 +216,7 @@ export default function Admin() {
   const handleDeleteProject = async (id) => {
     if (!window.confirm('Delete this project from live portfolio?')) return;
     try {
-      const res = await fetch(`/api/portfolio/${id}`, { method: 'DELETE' });
+      const res = await fetch(getApiUrl(`/api/portfolio/${id}`), { method: 'DELETE' });
       const data = await res.json();
       if (data.success) {
         setActionSuccessMsg('Project removed from live portfolio.');

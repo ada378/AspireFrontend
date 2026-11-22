@@ -8,10 +8,9 @@ export default defineConfig({
     open: false,
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'https://aspirebackend-16hn.onrender.com',
         changeOrigin: true
       }
     }
   }
 });
-

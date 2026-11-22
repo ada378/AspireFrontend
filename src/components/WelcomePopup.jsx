@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Send, Sparkles, CheckCircle2, Phone, Clock, ArrowRight } from 'lucide-react';
 import { companyInfo } from '../data/companyInfo';
+import { getApiUrl } from '../config/api';
 
 export default function WelcomePopup() {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +38,7 @@ export default function WelcomePopup() {
     setStatusMessage('');
 
     try {
-      const response = await fetch('/api/leads', {
+      const response = await fetch(getApiUrl('/api/leads'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

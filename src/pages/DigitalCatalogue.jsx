@@ -4,6 +4,7 @@ import {
   Download, Search, CheckCircle2, Calculator, ArrowRight,
   Sparkles, X, Send, Crown, HelpCircle
 } from 'lucide-react';
+import { getApiUrl } from '../config/api';
 
 export default function DigitalCatalogue() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -61,7 +62,7 @@ export default function DigitalCatalogue() {
     setQuoteSuccessMsg('');
 
     try {
-      const response = await fetch('/api/quote/estimate', {
+      const response = await fetch(getApiUrl('/api/quote/estimate'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

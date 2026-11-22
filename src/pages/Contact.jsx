@@ -4,6 +4,7 @@ import {
   MapPin, Phone, Mail, Globe, Clock, Send, CheckCircle2, 
   MessageCircle, Building2, ShieldCheck, Download, Sparkles 
 } from 'lucide-react';
+import { getApiUrl } from '../config/api';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -24,7 +25,7 @@ export default function Contact() {
     setStatusMessage(null);
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch(getApiUrl('/api/contact'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
