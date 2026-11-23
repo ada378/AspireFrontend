@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import WelcomePopup from './components/WelcomePopup';
+import PageLoader from './components/PageLoader';
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -31,6 +32,7 @@ function ScrollToTop() {
 export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-brand-blue selection:text-white">
+      <PageLoader />
       <ScrollToTop />
       <Navbar />
       <main className="flex-1">

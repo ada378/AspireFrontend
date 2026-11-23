@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { companyInfo } from '../data/companyInfo';
 import { 
   MapPin, Phone, Mail, Globe, Clock, Send, CheckCircle2, 
-  MessageCircle, Building2, ShieldCheck, Download, Sparkles 
+  MessageCircle, Building2, ShieldCheck, Download, Sparkles,
+  ArrowUpRight, Navigation
 } from 'lucide-react';
 import { getApiUrl } from '../config/api';
 
@@ -100,19 +101,22 @@ export default function Contact() {
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-emerald-600 shrink-0 mt-1" />
                   <div>
-                    <h4 className="font-bold text-slate-900">Corporate Headquarters</h4>
+                    <h4 className="font-bold text-slate-900">Corporate Headquarters (GMB Verified)</h4>
                     <p className="text-slate-600 text-xs mt-1 leading-relaxed">
-                      2nd Floor, 203-A, Felix Square, Sushant Golf City, Lucknow, Uttar Pradesh 226030
+                      {companyInfo.address}
                     </p>
+                    <span className="inline-block mt-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                      📍 Landmark: Near Lulu Mall, Ansal API
+                    </span>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
                   <Phone className="w-5 h-5 text-[#008cf0] shrink-0 mt-1" />
                   <div>
-                    <h4 className="font-bold text-slate-900">Direct Phone Lines</h4>
+                    <h4 className="font-bold text-slate-900">Direct Phone Line</h4>
                     <a href={`tel:${companyInfo.phoneClean}`} className="text-[#008cf0] hover:underline text-xs font-semibold block mt-1">
-                      {companyInfo.phone} / {companyInfo.phoneAlt}
+                      {companyInfo.phone}
                     </a>
                   </div>
                 </div>
@@ -152,7 +156,7 @@ export default function Contact() {
               {/* Direct WhatsApp Callout */}
               <div className="pt-4 border-t border-slate-100 flex flex-col gap-3">
                 <a
-                  href={`https://wa.me/${companyInfo.whatsappClean}?text=Hello%20Aspire%20MediaTech%20team,%20I%20am%20interested%20in%20your%20services`}
+                  href={companyInfo.whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 transition-all"
@@ -285,7 +289,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-4 rounded-xl bg-[#008cf0] hover:bg-blue-600 text-white font-bold text-xs uppercase tracking-wider shadow-md flex items-center justify-center gap-2 transition-all"
+                  className="w-full py-4 rounded-xl bg-[#008cf0] hover:bg-blue-600 text-white font-bold text-xs uppercase tracking-wider shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer"
                 >
                   {loading ? (
                     <span>Submitting Inquiry...</span>
@@ -302,6 +306,89 @@ export default function Contact() {
 
         </div>
       </section>
+
+      {/* Embedded Google Map Section (GMB Verified Location) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="rounded-3xl bg-white border border-slate-200 p-6 sm:p-10 shadow-sm space-y-6">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold uppercase tracking-wider">
+                <MapPin className="w-3.5 h-3.5 text-emerald-600" /> Google My Business Verified Office
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2">
+                Visit Aspire MediaTech Solutions Headquarters
+              </h2>
+              <p className="text-slate-600 text-sm mt-1">
+                {companyInfo.address}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 shrink-0">
+              <a
+                href={`tel:${companyInfo.phoneClean}`}
+                className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold border border-slate-300 transition-all"
+              >
+                <Phone className="w-3.5 h-3.5 text-[#008cf0]" />
+                <span>+91 9194035877</span>
+              </a>
+
+              <a
+                href={companyInfo.googleReviewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition-all shadow-md"
+                title="Write a Google Review for Aspire MediaTech Solutions"
+              >
+                <span className="text-amber-950 font-black">★</span>
+                <span>Review Us on Google</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+
+              <a
+                href={companyInfo.gmbSearchUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#008cf0] hover:bg-blue-600 text-white text-xs font-bold transition-all shadow-md"
+              >
+                <Navigation className="w-3.5 h-3.5 text-emerald-300" />
+                <span>Get Directions</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+
+          {/* Google Maps Responsive Frame */}
+          <div className="w-full h-80 sm:h-[460px] rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-slate-100">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3385.6012343108514!2d80.98716667521958!3d26.78143307672545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399be56c204af0a9%3A0x45896baee3262ec8!2sAspire%20MediaTech%20Solutions!5e1!3m2!1sen!2sin!4v1795459051751!5m2!1sen!2sin"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              title="Aspire MediaTech Solutions Headquarters Map"
+              className="w-full h-full"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 text-xs text-slate-600">
+            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="font-semibold text-slate-800">Prime Commercial Location:</span> Felix Square, Sushant Golf City
+            </div>
+            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2.5">
+              <span className="w-2 h-2 rounded-full bg-[#008cf0]" />
+              <span className="font-semibold text-slate-800">Famous Landmark:</span> Near Lulu Mall & Shaheed Path
+            </div>
+            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2.5">
+              <span className="w-2 h-2 rounded-full bg-purple-500" />
+              <span className="font-semibold text-slate-800">Parking & Reception:</span> Visitor Parking Available
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

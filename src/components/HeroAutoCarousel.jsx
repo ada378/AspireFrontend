@@ -94,10 +94,10 @@ export default function HeroAutoCarousel() {
             </p>
 
             {/* CTAs */}
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
               <Link
                 to="/catalogue"
-                className="px-7 py-4 rounded-xl bg-gradient-to-r from-[#008cf0] to-emerald-600 hover:from-blue-600 hover:to-emerald-700 text-white font-bold text-sm shadow-md hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2.5"
+                className="px-6 py-4 rounded-xl bg-gradient-to-r from-[#008cf0] to-emerald-600 hover:from-blue-600 hover:to-emerald-700 text-white font-bold text-sm shadow-md hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2.5 whitespace-nowrap"
               >
                 <BookOpen className="w-4 h-4 text-emerald-200" />
                 <span>Explore Digital Catalogue & Prices</span>
@@ -106,7 +106,7 @@ export default function HeroAutoCarousel() {
 
               <a
                 href={`tel:${companyInfo.phoneClean}`}
-                className="px-6 py-4 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-bold text-sm border border-slate-300 shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-2"
+                className="px-5 py-4 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-bold text-sm border border-slate-300 shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-2 whitespace-nowrap"
               >
                 <PhoneCall className="w-4 h-4 text-emerald-600" />
                 <span>Call {companyInfo.phone}</span>
@@ -158,10 +158,20 @@ export default function HeroAutoCarousel() {
                   </span>
                 </div>
 
-                <div className="absolute top-4 right-4 z-10 animate-floatSlow">
-                  <span className="px-3 py-1.5 rounded-full bg-emerald-600 text-white text-xs font-bold shadow-lg">
+                <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
+                  <span className="px-3 py-1.5 rounded-full bg-emerald-600 text-white text-xs font-bold shadow-lg hidden sm:inline-block">
                     {active.metric}
                   </span>
+                  <a
+                    href={companyInfo.googleReviewUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1.5 rounded-full bg-white/95 hover:bg-white text-slate-900 border border-amber-300 text-xs font-bold shadow-lg flex items-center gap-1.5 hover:scale-105 transition-all cursor-pointer"
+                    title="Review Aspire MediaTech on Google"
+                  >
+                    <span className="text-amber-500 font-bold">★ 4.9</span>
+                    <span className="text-amber-900 font-extrabold text-[11px] bg-amber-100 px-1.5 py-0.5 rounded">Review</span>
+                  </a>
                 </div>
 
                 {/* Bottom Photo Overlay Info */}
@@ -196,20 +206,34 @@ export default function HeroAutoCarousel() {
               </button>
             </div>
 
-            {/* Slide Navigation Dots */}
-            <div className="flex items-center justify-center gap-2 mt-4">
-              {photoSlides.map((slide, idx) => (
-                <button
-                  key={slide.id}
-                  onClick={() => setCurrentSlide(idx)}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    idx === currentSlide
-                      ? 'w-8 bg-[#008cf0]'
-                      : 'w-2.5 bg-slate-300 hover:bg-slate-400'
-                  }`}
-                  aria-label={`Go to slide ${idx + 1}`}
-                />
-              ))}
+            {/* Slide Navigation Dots + Review Button Close to Image */}
+            <div className="flex items-center justify-between gap-2 mt-2 px-1">
+              <div className="flex items-center gap-1.5">
+                {photoSlides.map((slide, idx) => (
+                  <button
+                    key={slide.id}
+                    onClick={() => setCurrentSlide(idx)}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      idx === currentSlide
+                        ? 'w-7 bg-[#008cf0]'
+                        : 'w-2 bg-slate-300 hover:bg-slate-400'
+                    }`}
+                    aria-label={`Go to slide ${idx + 1}`}
+                  />
+                ))}
+              </div>
+
+              {/* Review button tightly under image */}
+              <a
+                href={companyInfo.googleReviewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-300 text-xs font-bold transition-all shadow-2xs hover:scale-105 whitespace-nowrap"
+                title="Write a Google Review"
+              >
+                <span className="text-amber-500 font-black">★</span>
+                <span>Review Us on Google (4.9★)</span>
+              </a>
             </div>
 
           </div>

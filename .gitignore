@@ -7,7 +7,6 @@ dist-ssr/
 build/
 
 # Local Environment
-.env
 .env.local
 
 # Cache & Vite

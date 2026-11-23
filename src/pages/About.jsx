@@ -48,7 +48,7 @@ export default function About() {
                 <div>
                   <h4 className="text-sm font-bold text-slate-900">Headquarters: Lucknow, Uttar Pradesh</h4>
                   <p className="text-xs text-slate-600 mt-0.5">
-                    2nd Floor, 203-A, Felix Square, Sushant Golf City, Lucknow, UP 226030
+                    1st Floor, 203 A, Felix Square, Sushant Golf City, Ansal API, Near Lulu Mall, Lucknow, Uttar Pradesh 226030
                   </p>
                 </div>
               </div>
