@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { companyInfo } from '../data/companyInfo';
+import MotionReveal from '../components/MotionReveal';
 import { 
   MapPin, Phone, Mail, Globe, Clock, Send, CheckCircle2, 
   MessageCircle, Building2, ShieldCheck, Download, Sparkles,
@@ -65,7 +66,7 @@ export default function Contact() {
   return (
     <div className="space-y-16 py-12 pb-24 bg-slate-50 min-h-screen">
       {/* Header */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+      <section className="w-full mx-auto px-4 sm:px-6 lg:px-10 text-center space-y-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#008cf0] text-xs font-bold uppercase tracking-wider">
           <Sparkles className="w-3.5 h-3.5 text-emerald-500" /> Let's Build Together
         </div>
@@ -81,7 +82,7 @@ export default function Contact() {
       </section>
 
       {/* Main Grid: Form + Office Details */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full mx-auto px-4 sm:px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           
           {/* Office & Direct Contact Card (5 cols) */}
@@ -89,7 +90,7 @@ export default function Contact() {
             <div className="rounded-3xl bg-white border border-slate-200 p-8 space-y-6 shadow-sm">
               <div className="flex items-center gap-3 pb-6 border-b border-slate-100">
                 <div className="w-14 h-14 rounded-full border border-slate-200 shadow-sm overflow-hidden flex items-center justify-center bg-white shrink-0">
-                  <img src="/logo.jpeg" alt="Aspire MediaTech Logo" className="w-full h-full object-cover rounded-full" />
+                  <img src="/logo.jpeg" alt="Aspire MediaTech Logo" className="w-full h-full object-cover scale-105" />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-slate-900">Aspire MediaTech Solutions</h3>
@@ -116,7 +117,7 @@ export default function Contact() {
                   <div>
                     <h4 className="font-bold text-slate-900">Direct Phone Line</h4>
                     <a href={`tel:${companyInfo.phoneClean}`} className="text-[#008cf0] hover:underline text-xs font-semibold block mt-1">
-                      {companyInfo.phone}
+                      Call Now
                     </a>
                   </div>
                 </div>
@@ -170,7 +171,7 @@ export default function Contact() {
                   className="w-full py-3 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#008cf0] border border-blue-200 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all"
                 >
                   <Phone className="w-4 h-4" />
-                  <span>Call +91 91940 35877</span>
+                  <span>Call Now</span>
                 </a>
               </div>
             </div>
@@ -308,7 +309,8 @@ export default function Contact() {
       </section>
 
       {/* Embedded Google Map Section (GMB Verified Location) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <MotionReveal direction="up" delay={80}>
+        <section className="w-full mx-auto px-4 sm:px-6 lg:px-10">
         <div className="rounded-3xl bg-white border border-slate-200 p-6 sm:p-10 shadow-sm space-y-6">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
@@ -329,7 +331,7 @@ export default function Contact() {
                 className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold border border-slate-300 transition-all"
               >
                 <Phone className="w-3.5 h-3.5 text-[#008cf0]" />
-                <span>+91 9194035877</span>
+                <span>Call Now</span>
               </a>
 
               <a
@@ -387,7 +389,8 @@ export default function Contact() {
             </div>
           </div>
         </div>
-      </section>
+        </section>
+      </MotionReveal>
 
     </div>
   );

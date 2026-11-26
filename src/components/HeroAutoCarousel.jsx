@@ -74,7 +74,7 @@ export default function HeroAutoCarousel() {
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#008cf0]/5 rounded-full blur-3xl pointer-events-none animate-pulseGlow" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#10b981]/5 rounded-full blur-3xl pointer-events-none animate-pulseGlow" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative w-full mx-auto px-4 sm:px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           
           {/* Left Column: Headlines & CTAs (7 cols) */}
@@ -82,15 +82,15 @@ export default function HeroAutoCarousel() {
             
             {/* Main Headline */}
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12]">
-              Turn Your Digital Vision Into <br />
+              Best Digital Marketing & <br />
               <span className="text-gradient-blue-green">
-                Unstoppable Market Growth
+                Software Development in Lucknow
               </span>
             </h1>
 
             {/* Subhead */}
             <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl">
-              We engineer production-grade web applications, cross-platform mobile apps, turnkey e-commerce systems, and high-ROI Meta & Google ad campaigns under one unified roof in Lucknow.
+              Aspire MediaTech Solutions is a trusted Digital Marketing Agency and Software Development Company in Lucknow. We build custom websites, mobile apps, SEO, Google Ads, and Meta Ads for growing businesses across Lucknow.
             </p>
 
             {/* CTAs */}
@@ -109,7 +109,7 @@ export default function HeroAutoCarousel() {
                 className="px-5 py-4 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-bold text-sm border border-slate-300 shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-2 whitespace-nowrap"
               >
                 <PhoneCall className="w-4 h-4 text-emerald-600" />
-                <span>Call {companyInfo.phone}</span>
+                <span>Call Now</span>
               </a>
             </div>
 
@@ -117,15 +117,15 @@ export default function HeroAutoCarousel() {
             <div className="pt-4 flex flex-wrap items-center gap-6 text-xs font-semibold text-slate-600 border-t border-slate-200/80">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                <span>Zero Outsourcing Guarantee</span>
+                <span>Digital Marketing Experts in Lucknow</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                <span>ISO & Code Review Standards</span>
+                <span>Custom Software & App Development</span>
               </div>
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-[#008cf0]" />
-                <span>Lucknow Felix Square HQ</span>
+                <span>Felix Square, Near Lulu Mall, Lucknow</span>
               </div>
             </div>
 

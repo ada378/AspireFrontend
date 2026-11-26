@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import catalogData from '../data/catalogData.json';
+import MotionReveal from '../components/MotionReveal';
 import { 
   Code, Smartphone, ShoppingCart, Video, Palette, TrendingUp, 
   Layers, CheckCircle2, ArrowRight, ShieldCheck, Download, Sparkles, ExternalLink
@@ -27,23 +28,23 @@ export default function Services() {
   return (
     <div className="space-y-20 py-12 pb-24 bg-white">
       {/* Header */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+      <section className="w-full mx-auto px-4 sm:px-6 lg:px-10 text-center space-y-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-brand-blue text-xs font-bold uppercase tracking-wider">
-          Complete Service Offerings
+          Lucknow Digital Marketing & Software Services
         </div>
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight">
-          Full-Stack Technology & <br />
+          Best Digital Marketing & <br />
           <span className="text-gradient-blue-green">
-            Performance Marketing Solutions
+            Software Development in Lucknow
           </span>
         </h1>
         <p className="text-slate-600 text-base sm:text-lg max-w-3xl mx-auto">
-          Explore our complete suite of specialized digital services designed for startups, growing SMEs, and enterprise brands across India.
+          Custom websites, mobile apps, SEO, Google Ads, and Meta Ads tailored for startups and businesses across Lucknow.
         </p>
       </section>
 
       {/* Category Tabs */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full mx-auto px-4 sm:px-6 lg:px-10">
         <div className="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-none border-b border-slate-200">
           {categories.map((cat) => {
             const CatIcon = iconMap[cat.id] || Code;
@@ -67,7 +68,7 @@ export default function Services() {
       </section>
 
       {/* Selected Category Content */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full mx-auto px-4 sm:px-6 lg:px-10">
         <div className="mb-10 space-y-2">
           <div className="flex items-center gap-3">
             <div className="p-2.5 rounded-xl bg-blue-50 text-brand-blue border border-blue-200">
@@ -88,8 +89,9 @@ export default function Services() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {selectedCategory.items.map((item, idx) => (
             <div
-              key={idx}
-              className="rounded-2xl bg-white border border-slate-200 hover:border-brand-blue p-6 flex flex-col justify-between space-y-5 transition-all duration-300 hover:-translate-y-1 shadow-card hover:shadow-card-hover"
+              key={`${selectedCategory.id}-${idx}`}
+              className="rounded-2xl bg-white border border-slate-200 hover:border-brand-blue p-6 flex flex-col justify-between space-y-5 transition-all duration-300 hover:-translate-y-1.5 shadow-card hover:shadow-card-hover animate-fadeInUp"
+              style={{ animationDelay: `${idx * 65}ms` }}
             >
               <div>
                 <div className="flex items-start justify-between gap-3 mb-3">
@@ -147,7 +149,7 @@ export default function Services() {
       </section>
 
       {/* Tech Stack Matrix */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full mx-auto px-4 sm:px-6 lg:px-10">
         <div className="rounded-2xl bg-slate-50 border border-slate-200 p-8 sm:p-12 space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="text-xs font-bold text-brand-green uppercase tracking-wider">
@@ -206,7 +208,7 @@ export default function Services() {
       </section>
 
       {/* Download Catalogue CTA */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="w-full mx-auto px-4 sm:px-6 lg:px-10 text-center">
         <div className="p-10 rounded-2xl bg-white border-2 border-slate-200 space-y-4 shadow-card">
           <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
             Need the Complete Official Price Catalog?

@@ -23,17 +23,17 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-xs transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-10">
         {/* Strictly ONE line flex container with generous height for prominent logo */}
         <div className="flex items-center justify-between h-24 sm:h-28 flex-nowrap gap-3 sm:gap-6">
           
-          {/* 1. Left: Brand & Prominent, Larger Circular Logo (single row, no wrapping) */}
+          {/* 1. Left: Brand & Crisp Single-Circle Logo */}
           <Link to="/" className="flex items-center gap-3 sm:gap-4 shrink-0 group">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-[80px] lg:h-[80px] rounded-full p-1.5 bg-white border-2 border-slate-200 shadow-md group-hover:border-[#008cf0] group-hover:shadow-lg transition-all duration-300 flex items-center justify-center shrink-0 overflow-hidden">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-[80px] lg:h-[80px] rounded-full bg-white border border-slate-200 shadow-md group-hover:border-[#008cf0] group-hover:shadow-lg transition-all duration-300 flex items-center justify-center shrink-0 overflow-hidden">
               <img 
                 src="/logo.jpeg" 
                 alt="Aspire MediaTech Solutions Logo" 
-                className="w-full h-full object-cover rounded-full transform group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover scale-105 transform group-hover:scale-110 transition-transform duration-300"
               />
             </div>
             
@@ -87,7 +87,7 @@ export default function Navbar() {
               title="Call Aspire MediaTech Lucknow HQ"
             >
               <Phone className="w-3.5 h-3.5 text-emerald-600" />
-              <span>{companyInfo.phone}</span>
+              <span>Call</span>
             </a>
 
             <Link
@@ -157,7 +157,7 @@ export default function Navbar() {
               className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold border border-slate-200"
             >
               <Phone className="w-3.5 h-3.5 text-emerald-600" />
-              Call Office: {companyInfo.phone}
+              Call Now
             </a>
 
             <Link

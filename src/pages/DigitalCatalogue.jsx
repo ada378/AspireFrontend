@@ -94,7 +94,7 @@ export default function DigitalCatalogue() {
     <div className="space-y-16 py-12 pb-24 bg-slate-50 min-h-screen">
 
       {/* Header Banner */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full mx-auto px-4 sm:px-6 lg:px-10">
         <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-blue-50 via-white to-emerald-50 border border-blue-200/80 p-8 sm:p-14 text-center space-y-6 shadow-sm">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold uppercase tracking-wider">
             <Sparkles className="w-4 h-4 text-[#008cf0]" /> Official 21-Page Digital Service Catalogue
@@ -167,7 +167,7 @@ export default function DigitalCatalogue() {
       )}
 
       {/* Interactive Search & Filters Bar */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <section className="w-full mx-auto px-4 sm:px-6 lg:px-10 space-y-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
 
           {/* Search Input */}
@@ -227,7 +227,7 @@ export default function DigitalCatalogue() {
 
       {/* Mega Plans Highlight Banner */}
       {(selectedCategory === 'all' || selectedCategory === 'mega-plans') && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="w-full mx-auto px-4 sm:px-6 lg:px-10">
           <div className="space-y-6">
             <div className="flex items-center gap-2 text-emerald-700 font-bold text-xs uppercase tracking-wider">
               <Crown className="w-4 h-4 text-[#008cf0]" /> All-In-One Enterprise & Dominator Growth Plans
@@ -317,7 +317,7 @@ export default function DigitalCatalogue() {
       )}
 
       {/* Catalogue Cards Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full mx-auto px-4 sm:px-6 lg:px-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredItems
             .filter(item => item.categoryId !== 'mega-plans')

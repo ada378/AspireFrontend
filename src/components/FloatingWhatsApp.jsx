@@ -9,7 +9,7 @@ export default function FloatingWhatsApp() {
       {/* 1. Floating Phone Call Button */}
       <div className="flex items-center group">
         <span className="hidden sm:inline-block mr-3 px-3 py-1.5 rounded-xl bg-slate-900 text-white text-xs font-semibold shadow-xl border border-slate-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
-          Direct Call: {companyInfo.phone}
+          Direct Call Now
         </span>
         <a
           href={`tel:${companyInfo.phoneClean}`}

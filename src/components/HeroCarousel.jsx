@@ -185,7 +185,7 @@ export default function HeroCarousel() {
       <div className={`absolute inset-0 bg-gradient-to-r ${active.bgGradient} transition-colors duration-700 opacity-70`} />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#008cf00a_1px,transparent_1px),linear-gradient(to_bottom,#008cf00a_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16 lg:py-20">
+      <div className="relative w-full mx-auto px-4 sm:px-6 lg:px-10 pt-10 pb-16 lg:py-20">
         
         {/* Main Slide Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">

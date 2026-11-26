@@ -14,7 +14,7 @@ export default function Hero() {
       {/* Decorative Grid Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#0080f00a_1px,transparent_1px),linear-gradient(to_bottom,#0080f00a_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative w-full mx-auto px-4 sm:px-6 lg:px-10">
         <div className="text-center max-w-4xl mx-auto space-y-6">
           
           {/* Top Pill Badge */}

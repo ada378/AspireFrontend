@@ -6,16 +6,16 @@ import { companyInfo } from '../data/companyInfo';
 export default function Footer() {
   return (
     <footer className="bg-slate-900 border-t border-slate-800 text-slate-400 pt-16 pb-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-10">
+
         {/* Top 5-Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
 
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <Link to="/" className="flex items-center gap-3">
-              <div className="w-14 h-14 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center shrink-0 overflow-hidden">
-                <img src="/logo.jpeg" alt="Aspire MediaTech Logo" className="w-full h-full object-cover rounded-full" />
+              <div className="w-14 h-14 rounded-full bg-white border border-slate-700 shadow-md flex items-center justify-center shrink-0 overflow-hidden">
+                <img src="/logo.jpeg" alt="Aspire MediaTech Logo" className="w-full h-full object-cover scale-105" />
               </div>
               <div>
                 <span className="font-extrabold text-xl tracking-tight text-white">
@@ -28,7 +28,7 @@ export default function Footer() {
             </Link>
 
             <p className="text-sm text-slate-300 leading-relaxed max-w-sm">
-              Headquartered in Lucknow, Aspire MediaTech Solutions bridges the gap between technology and measurable business growth. We deliver production-grade web applications, custom mobile apps, e-commerce ecosystems, and high-converting marketing campaigns.
+              Aspire MediaTech Solutions is a leading Digital Marketing Agency and Software Development Company in Lucknow. We build custom websites, mobile apps, e-commerce stores, SEO, and Meta & Google Ads for businesses in Lucknow.
             </p>
 
             <div className="pt-2 flex items-center gap-3">
@@ -82,7 +82,7 @@ export default function Footer() {
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-[#008cf0] shrink-0" />
                 <a href={`tel:${companyInfo.phoneClean}`} className="text-slate-200 hover:text-[#008cf0] font-medium">
-                  {companyInfo.phone}
+                  Call Now
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
@@ -124,7 +124,7 @@ export default function Footer() {
                   className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 transition-all"
                 >
                   <Phone className="w-3.5 h-3.5 text-[#008cf0]" />
-                  <span>+91 9194035877</span>
+                  <span>Call Now</span>
                 </a>
 
                 <a

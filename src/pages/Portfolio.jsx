@@ -63,7 +63,7 @@ export default function Portfolio() {
     <div className="space-y-16 py-12 pb-24 bg-slate-50 min-h-screen">
       
       {/* Header */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 animate-fadeInUp">
+      <section className="w-full mx-auto px-4 sm:px-6 lg:px-10 text-center space-y-4 animate-fadeInUp">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#008cf0] text-xs font-bold uppercase tracking-wider">
           <Sparkles className="w-3.5 h-3.5 text-emerald-500 animate-pulse" /> Dynamic Client Case Studies
         </div>
@@ -79,7 +79,7 @@ export default function Portfolio() {
       </section>
 
       {/* Filter Tabs & Search Bar */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 animate-fadeInUp">
+      <section className="w-full mx-auto px-4 sm:px-6 lg:px-10 space-y-4 animate-fadeInUp">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           
           {/* Dynamic Category Pills */}
@@ -115,7 +115,7 @@ export default function Portfolio() {
       </section>
 
       {/* Dynamic Projects Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full mx-auto px-4 sm:px-6 lg:px-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filtered.map((project, idx) => (
             <div

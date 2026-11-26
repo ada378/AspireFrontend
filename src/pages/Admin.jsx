@@ -356,13 +356,13 @@ export default function Admin() {
   // 2. DASHBOARD VIEW (100% Fully Responsive)
   return (
     <div className="space-y-6 sm:space-y-8 py-5 sm:py-8 pb-20 sm:pb-24 bg-slate-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
+      <div className="w-full mx-auto px-3 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         
         {/* Top Header Bar (Fully Responsive Wrap) */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-sm">
           <div className="flex items-start sm:items-center gap-3 sm:gap-4">
-            <div className="w-12 h-12 sm:w-15 sm:h-15 rounded-full p-1 bg-white border-2 border-[#008cf0]/30 shadow-sm flex items-center justify-center shrink-0 overflow-hidden">
-              <img src="/logo.jpeg" alt="Aspire MediaTech Logo" className="w-full h-full object-cover rounded-full" />
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center shrink-0 overflow-hidden">
+              <img src="/logo.jpeg" alt="Aspire MediaTech Logo" className="w-full h-full object-cover scale-105" />
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
